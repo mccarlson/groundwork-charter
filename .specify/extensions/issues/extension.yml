@@ -1,0 +1,47 @@
+schema_version: "1.0"
+
+extension:
+  id: issues
+  name: "Issue-Numbered Features"
+  version: "0.1.0"
+  description: "Starts a feature from an assigned GitHub issue: syncs main, verifies the issue, and uses the issue number for both the branch and the spec directory"
+  author: local
+  license: MIT
+
+requires:
+  speckit_version: ">=1.0.0"
+  tools:
+    - name: git
+      required: true
+    - name: gh
+      required: true
+
+provides:
+  commands:
+    - name: speckit.issues.feature
+      file: commands/speckit.issues.feature.md
+      description: "Start a feature from an assigned GitHub issue"
+
+  config:
+    - name: "issues-config.yml"
+      template: "config-template.yml"
+      description: "Branch prefix and required issue label"
+      required: false
+
+hooks:
+  before_specify:
+    command: speckit.issues.feature
+    optional: false
+    description: "Sync main, verify the issue, and create the issue-numbered branch before specification"
+
+tags:
+  - "git"
+  - "github"
+  - "issues"
+  - "workflow"
+
+config:
+  defaults:
+    branch_prefix: spec
+    required_label: "type:feature"
+    base_branch: main

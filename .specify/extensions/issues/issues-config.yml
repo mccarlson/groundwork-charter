@@ -1,0 +1,11 @@
+# Issue-Numbered Features configuration
+# Copied to .specify/extensions/issues/issues-config.yml on install
+
+# Branch prefix. Branches are created as <branch_prefix>/<NNN>-<slug>.
+branch_prefix: spec
+
+# Label the issue must carry before a feature can start from it.
+required_label: "type:feature"
+
+# Branch that must be in sync with origin before starting.
+base_branch: main
