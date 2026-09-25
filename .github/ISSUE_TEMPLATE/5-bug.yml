@@ -1,0 +1,35 @@
+name: Bug
+description: A defect in an implementation repository, tracked here so its number is collision-free.
+labels: ["type:bug"]
+body:
+  - type: input
+    id: repository
+    attributes:
+      label: Repository
+      description: The implementation repository where the bug lives.
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: What happened
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What should have happened
+      description: Link the spec section or acceptance criterion it violates, if there is one.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+  - type: checkboxes
+    id: public
+    attributes:
+      label: Public repository
+      options:
+        - label: This issue contains no real client data (names, addresses, rates, contact details, or client documents).
+          required: true

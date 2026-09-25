@@ -1,0 +1,29 @@
+name: Charter change
+description: A change to the constitution, process/, templates, extensions, CI, or agent guardrails.
+labels: ["type:charter"]
+body:
+  - type: textarea
+    id: change
+    attributes:
+      label: What changes
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why
+      description: The failure this prevents, or the gap it closes.
+    validations:
+      required: true
+  - type: dropdown
+    id: version
+    attributes:
+      label: Constitution version impact
+      description: MAJOR removes or redefines a principle, MINOR adds or reverses a rule, PATCH clarifies.
+      options:
+        - None (constitution untouched)
+        - PATCH
+        - MINOR
+        - MAJOR
+    validations:
+      required: true

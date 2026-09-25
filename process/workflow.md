@@ -4,7 +4,7 @@
 
 How work moves from idea to merged code across the charter repository and the implementation repositories. Every rule states what it prevents and what enforces it. A rule with no enforcement is marked **convention** and is only as strong as the people and agents following it.
 
-> **Vocabulary rule.** Nothing under `process/` names the product, its domain, or its vendors. Project specifics live under `product/`. This keeps `process/` reusable by copying the directory. CI enforces it with the denylist in `product/vocabulary-denylist.txt`.
+> **Vocabulary rule.** Nothing under `process/`, `.specify/extensions/issues/`, or `.claude/hooks/` names the product, its domain, or its vendors. Project specifics live under `product/`. This keeps those directories reusable by copying them. CI enforces it with the denylist in `product/vocabulary-denylist.txt`.
 
 ---
 
@@ -36,7 +36,7 @@ All repositories are cloned as siblings under one parent directory. Implementati
 |---|---|---|
 | Every issue has exactly one assignee, and that person is its owner. Nobody works on an unassigned issue, and only the owner starts work on one. | Work nobody owns, and two people starting the same item. | `issues` extension refuses issues that are unassigned, have several assignees, or are assigned to someone else |
 | Handing an issue off means reassigning it and commenting why. | Ownership that's assumed but never recorded. | Convention |
-| Every issue has a type label: `type:feature`, `type:adr`, `type:research`, `type:bug`, or `type:charter`. | Work with no clear place in the lifecycle. | Issue templates |
+| Every issue has a type label: `type:feature`, `type:adr`, `type:research`, `type:bug`, or `type:charter`. | Work with no clear place in the lifecycle. | Issue templates apply the label, and blank issues are disabled. `gh issue create` and the API can still skip a template, so the `issues` extension also checks `type:feature` before a spec starts |
 | A feature issue stays open until its spec **and** its implementation have both merged. The implementation PR closes it with `Closes <owner>/<charter>#NNN`. | A feature marked done when only the spec exists. | PR template + CI |
 | If a spec is amended after implementation starts, the amendment PR is linked on the issue, and the implementation owner acknowledges it before continuing. | Code built against a spec that changed underneath it. | CI drift check (§5) + convention |
 
@@ -88,11 +88,11 @@ Branch protection on `main` in **every** repository:
 |---|---|---|
 | PR title: `<prefix>(NNN): summary`, e.g. `feat(042): quick-add tiles`. | History that can't be traced to issues. | CI title check |
 | Squash merge only. The squash commit keeps the PR title. | Noisy history. One commit per issue keeps revert and blame simple. | Repository merge settings |
-| The PR body links the issue (`Closes #NNN`), the spec reference, and, for charter PRs, a list of the specs and plans the change affects. | Changes whose impact nobody checked. | CI checks the issue reference; the rest is convention until a PR template exists |
+| The PR body links the issue (`Closes #NNN`), the spec reference, and, for charter PRs, a list of the specs and plans the change affects. | Changes whose impact nobody checked. | PR template prompts for all three; CI checks the issue reference |
 | Only the PR author brings a branch up to date with main. The reviewer never clicks **Update branch**. | A deadlock: whoever pushed last can't approve, and the author can't approve their own PR, so a reviewer's update leaves nobody able to approve. | Convention |
 | Constitution PRs stay open for at least 24 hours before merging. | One owner changing the rules while the other is away. | Convention (can be automated later) |
 
-**Two owners means every merge has both.** The author writes it and the other owner approves it, so every change, shared contracts included, already has both people on it. CODEOWNERS dual approval only matters once a third contributor joins. Configure it now anyway so it's in place when that happens.
+**Two owners means every merge has both.** The author writes it and the other owner approves it, so every change, shared contracts included, already has both people on it. `.github/CODEOWNERS` lists both owners on every path, so GitHub requests the other owner's review automatically. Listing two owners means *either* can approve: once a third contributor joins, CODEOWNERS guarantees an owner reviews each change, not that both do. Requiring both owners on shared contracts would then need its own rule.
 
 ## 8. Agents
 

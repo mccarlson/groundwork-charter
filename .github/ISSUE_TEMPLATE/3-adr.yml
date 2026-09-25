@@ -1,0 +1,28 @@
+name: Architecture decision
+description: A decision that constrains future work. Recorded as an ADR in adr/NNN-slug.md.
+labels: ["type:adr"]
+body:
+  - type: textarea
+    id: decision
+    attributes:
+      label: Decision needed
+      description: The choice to be made, in one or two sentences.
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: What forces this decision now, and which constitution principles apply?
+    validations:
+      required: true
+  - type: textarea
+    id: options
+    attributes:
+      label: Options
+      description: The alternatives known so far. The ADR will weigh them.
+  - type: input
+    id: blocks
+    attributes:
+      label: Blocks
+      description: What can't proceed until this is decided?

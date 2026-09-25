@@ -1,0 +1,41 @@
+name: Research
+description: An open question that has to be answered before some work can start. Ends in an ADR or a written note.
+labels: ["type:research"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Nobody implements against an open research question. Assign this issue to one owner before starting.
+  - type: textarea
+    id: question
+    attributes:
+      label: Question
+      description: What exactly needs answering?
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why it matters
+      description: What goes wrong if we guess?
+    validations:
+      required: true
+  - type: textarea
+    id: output
+    attributes:
+      label: Expected output
+      description: An ADR, a note, a spike, an eval. Say what "done" looks like.
+    validations:
+      required: true
+  - type: input
+    id: blocks
+    attributes:
+      label: Blocks
+      description: The phase, spec, or issue that can't start until this closes.
+  - type: checkboxes
+    id: public
+    attributes:
+      label: Public repository
+      options:
+        - label: This issue contains no real client data (names, addresses, rates, contact details, or client documents).
+          required: true
