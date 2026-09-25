@@ -111,7 +111,14 @@ Agents use their developer's GitHub credentials. **Any rule not enforced by GitH
 - stop and report if the spec changed on charter main since the `Charter-Ref` they're working from
 - stop and explain, not work around, when a rule blocks them
 
-**Enforced by:** each repo's `CLAUDE.md` (states the rules), Claude Code permission rules and hooks (deny `gh pr merge`, pushes to main, and force-push), and branch protection as the final backstop.
+**Enforced by:**
+
+- **`CLAUDE.md`** in each repo states the rules.
+- **`.claude/hooks/guard_bash.py`**, a PreToolUse hook committed with the repo, parses every Bash command an agent runs, including compound commands and `bash -c`. It **denies** the "never" list above: merging, closing, approving, or requesting changes on PRs; pushing to main in any form; force-pushing; deleting remote branches; committing or non-fast-forward merging on local main; GitHub writes through `gh api`; and changing workflows, repository settings, or secrets. It **asks** the user before issue and label changes, since agents make those only when told to.
+- **`.claude/settings.json`** repeats the common deny forms as plain permission rules in case the hook can't run, and **asks** before any edit to the constitution, `process/`, `.specify/extensions/`, `.github/`, `CLAUDE.md`, the vocabulary denylist, or the settings and hook themselves. That keeps an agent from weakening its own guardrails.
+- **Branch protection** (§7) is the final backstop. It holds even if a session runs with permissions bypassed.
+
+The hook sees only commands an agent runs through Claude Code's Bash tool. Commands a script runs internally, and shell writes to protected files, are caught by review and CI, not by the hook.
 
 ## 9. Enforcement summary
 
@@ -121,7 +128,7 @@ Agents use their developer's GitHub credentials. **Any rule not enforced by GitH
 | CI (charter), required check `charter-checks` | Branch name, PR title, issue reference, vocabulary rule, relative links. Required frontmatter is pending the spec header format. | Every charter PR |
 | CI (implementation) | Spec exists on charter main, `Charter-Ref` present, drift check, PR title | Every implementation PR |
 | Spec Kit `issues` extension | Issue-number IDs, branch prefix, sync, owner check, number collisions | `/speckit-specify` (runs as a mandatory pre-hook) |
-| Claude Code settings | Denied commands, protected paths | Agent sessions |
+| Claude Code hook and settings (`.claude/`) | Denied git and gh operations (§8), user confirmation for issue changes and edits to protected paths | Agent sessions, both machines |
 | Convention | Everything marked *convention* above | Only good faith |
 
 ## 10. Changing this document
