@@ -1,0 +1,9 @@
+# Terms that must not appear under process/ or .specify/extensions/issues/.
+# One term per line, matched case-insensitively as a substring.
+# Checked by .github/scripts/charter_checks.py on every pull request.
+groundwork
+excavat
+stripe
+tenant
+invoice
+client 0
