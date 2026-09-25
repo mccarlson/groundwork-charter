@@ -4,7 +4,7 @@
 
 How work moves from idea to merged code across the charter repository and the implementation repositories. Every rule states what it prevents and what enforces it. A rule with no enforcement is marked **convention** and is only as strong as the people and agents following it.
 
-> **Vocabulary rule.** Nothing under `process/` names the product, its domain, or its vendors. Project specifics live under `product/`. This keeps `process/` reusable by copying the directory. CI enforces it with a denylist defined in `product/`.
+> **Vocabulary rule.** Nothing under `process/` names the product, its domain, or its vendors. Project specifics live under `product/`. This keeps `process/` reusable by copying the directory. CI enforces it with the denylist in `product/vocabulary-denylist.txt`.
 
 ---
 
@@ -53,7 +53,7 @@ All repositories are cloned as siblings under one parent directory. Implementati
 
 | Rule | Prevents | Enforced by |
 |---|---|---|
-| Branch names match `^(spec\|adr\|charter\|feat\|fix\|chore)/\d{3,}-[a-z0-9-]+$`. | Branches that can't be traced to an issue. | GitHub ruleset + CI |
+| Branch names match `^(spec\|adr\|charter\|feat\|fix\|chore)/\d{3,}-[a-z0-9-]+$`. | Branches that can't be traced to an issue. | Required CI check. GitHub can't restrict branch names on this plan, so a misnamed branch can be pushed but can't merge. |
 | One issue per branch. | PRs that bundle unrelated changes and can't be reviewed or reverted cleanly. | Convention |
 | Branches merge within about 3 working days, or get rebased onto main. | Long-lived branches that go stale and conflict. | Convention |
 
@@ -88,7 +88,8 @@ Branch protection on `main` in **every** repository:
 |---|---|---|
 | PR title: `<prefix>(NNN): summary`, e.g. `feat(042): quick-add tiles`. | History that can't be traced to issues. | CI title check |
 | Squash merge only. The squash commit keeps the PR title. | Noisy history. One commit per issue keeps revert and blame simple. | Repository merge settings |
-| The PR template requires the issue link, the spec reference, and, for charter PRs, a list of the specs and plans the change affects. | Changes whose impact nobody checked. | PR template + CI |
+| The PR body links the issue (`Closes #NNN`), the spec reference, and, for charter PRs, a list of the specs and plans the change affects. | Changes whose impact nobody checked. | CI checks the issue reference; the rest is convention until a PR template exists |
+| Only the PR author brings a branch up to date with main. The reviewer never clicks **Update branch**. | A deadlock: whoever pushed last can't approve, and the author can't approve their own PR, so a reviewer's update leaves nobody able to approve. | Convention |
 | Constitution PRs stay open for at least 24 hours before merging. | One owner changing the rules while the other is away. | Convention (can be automated later) |
 
 **Two owners means every merge has both.** The author writes it and the other owner approves it, so every change, shared contracts included, already has both people on it. CODEOWNERS dual approval only matters once a third contributor joins. Configure it now anyway so it's in place when that happens.
@@ -116,8 +117,8 @@ Agents use their developer's GitHub credentials. **Any rule not enforced by GitH
 
 | Layer | Enforces | Applies to |
 |---|---|---|
-| GitHub branch protection / rulesets | PR required, review, up-to-date, no force-push, branch names | Humans and agents, server-side |
-| CI (charter) | Vocabulary rule, required frontmatter, dead cross-references, PR title | Every charter PR |
+| GitHub branch protection / rulesets | PR required, review by someone other than the last pusher, up-to-date, squash only, no force-push or deletion | Humans and agents, server-side |
+| CI (charter), required check `charter-checks` | Branch name, PR title, issue reference, vocabulary rule, relative links. Required frontmatter is pending the spec header format. | Every charter PR |
 | CI (implementation) | Spec exists on charter main, `Charter-Ref` present, drift check, PR title | Every implementation PR |
 | Spec Kit `issues` extension | Issue-number IDs, branch prefix, sync, owner check, number collisions | `/speckit-specify` (runs as a mandatory pre-hook) |
 | Claude Code settings | Denied commands, protected paths | Agent sessions |
