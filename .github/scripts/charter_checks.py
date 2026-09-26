@@ -24,7 +24,7 @@ ROOT = Path(__file__).resolve().parents[2]
 BRANCH_RE = re.compile(r"^(spec|adr|charter)/([0-9]{3,})-[a-z0-9]+(-[a-z0-9]+)*$")
 
 # Must stay project-agnostic (process/workflow.md, vocabulary rule).
-VOCABULARY_PATHS = ["process", ".specify/extensions/issues"]
+VOCABULARY_PATHS = ["process", ".specify/extensions/issues", ".claude/hooks"]
 DENYLIST = ROOT / "product" / "vocabulary-denylist.txt"
 
 # Charter documents whose relative links must resolve.

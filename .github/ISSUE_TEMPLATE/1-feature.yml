@@ -1,0 +1,35 @@
+name: Feature
+description: A capability to specify in this repository, then build in an implementation repository.
+labels: ["type:feature"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Before you start work:** assign this issue to yourself, then run `/speckit-specify #<number> <description>`.
+        The issue number becomes the branch and the spec directory (`spec/NNN-slug`, `specs/NNN-slug/`).
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What can't someone do today, and who is affected?
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Outcome
+      description: What is true once this is done? This seeds the spec's acceptance criteria.
+    validations:
+      required: true
+  - type: textarea
+    id: references
+    attributes:
+      label: Constraints and references
+      description: Constitution principles, ADRs, research issues, or mockups this depends on.
+  - type: checkboxes
+    id: public
+    attributes:
+      label: Public repository
+      options:
+        - label: This issue contains no real client data (names, addresses, rates, contact details, or client documents).
+          required: true

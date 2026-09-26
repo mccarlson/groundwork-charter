@@ -29,7 +29,7 @@ This is the **Groundwork charter**: the definition of what Groundwork is. Specs,
 
 ## Vocabulary rule
 
-Files under `process/` and `.specify/extensions/issues/` never name Groundwork, its domain, or its vendors. They must stay reusable in other projects.
+Files under `process/`, `.specify/extensions/issues/`, and `.claude/hooks/` never name Groundwork, its domain, or its vendors. They must stay reusable in other projects.
 
 ## Local preferences
 
