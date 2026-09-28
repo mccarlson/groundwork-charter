@@ -23,6 +23,7 @@ Current status, ownership, and open questions live in [Issues](https://github.co
 | `.claude/skills/` | Spec Kit commands for Claude Code (`/speckit-*`) |
 | `specs/NNN-slug/` | One directory per feature: spec, plan, tasks |
 | `adr/NNN-slug.md` | Architecture decision records |
+| `mockups/<screen-id>-slug/` | One directory per screen mockup (see `product/mockups.md`) |
 
 `NNN` is always a GitHub issue number from this repository.
 
