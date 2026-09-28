@@ -1,3 +1,9 @@
+<!--
+Sync Impact Report
+- Version: 0.1.0 -> 1.0.0 (ratification by both owners; no principle added, removed, or reworded)
+- Templates: plan-template.md derives its Constitution Check gates from this file at plan time; no update needed
+- Follow-up: none
+-->
 # Groundwork Constitution
 
 This document holds the non-negotiable principles for the Groundwork platform. Every spec, plan, task, and pull request is checked against it. When a spec and the constitution disagree, the constitution wins until it is formally amended.
@@ -107,4 +113,4 @@ Any decision that constrains future work is recorded as an ADR in `adr/`. Verbal
 - Each amendment bumps the version: MAJOR for removing or redefining a principle, MINOR for adding one, PATCH for clarifications.
 - The amendment PR states which existing specs, plans, or code are affected and how they will be brought into compliance.
 
-**Version**: 0.1.0 | **Ratified**: pending | **Last Amended**: 2026-09-24
+**Version**: 1.0.0 | **Ratified**: 2026-09-29 | **Last Amended**: 2026-09-29
