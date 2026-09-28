@@ -7,8 +7,9 @@ This repository defines **what Groundwork is**: its vision, constitution, featur
 ## Read first
 
 1. [`product/vision.md`](product/vision.md): what Groundwork is, the two bets, and how we'll know they hold.
-2. [`.specify/memory/constitution.md`](.specify/memory/constitution.md): the non-negotiable principles. They win over any spec.
-3. [`process/workflow.md`](process/workflow.md): how work moves from issue to merged PR, and what enforces each rule.
+2. [`product/roadmap.md`](product/roadmap.md): the phases, what gates each one, and the current phase.
+3. [`.specify/memory/constitution.md`](.specify/memory/constitution.md): the non-negotiable principles. They win over any spec.
+4. [`process/workflow.md`](process/workflow.md): how work moves from issue to merged PR, and what enforces each rule.
 
 Current status, ownership, and open questions live in [Issues](https://github.com/mccarlson/groundwork-charter/issues), not in this file.
 
